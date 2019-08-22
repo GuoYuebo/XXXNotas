@@ -4,12 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
+        xmlns:res="clr-namespace:XXXNotas.Resources"
         mc:Ignorable="d ignore"
-        Height="300"
-        Width="300"
-        Title="MVVM Light Application"
+        Height="480"
+        Icon="Icons/app_48.ico" 
+        Width="640"
+        Title="XXXNotas"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
-    
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,14 +20,25 @@
     </Window.Resources>
 
     <Grid x:Name="LayoutRoot">
-
-        <TextBlock FontSize="36"
-                   FontWeight="Bold"
-                   Foreground="Purple"
-                   Text="{Binding WelcomeTitle}"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   TextWrapping="Wrap" />
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="2" Padding="5" Background="#eaeaa0">
+            <DockPanel>
+                <TextBlock VerticalAlignment="Center">
+                    <Hyperlink>
+                        <InlineUIContainer>
+                            <TextBlock Text="{x:Static res:Strings.CategoryOptions}"/>
+                        </InlineUIContainer>
+                    </Hyperlink>                
+                </TextBlock>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="{x:Static res:Strings.Zoom}"/>
+                    <Slider Width="125" Minimum="1" Maximum="4" Value="1" Margin="5 0"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
     </Grid>
 </Window>
