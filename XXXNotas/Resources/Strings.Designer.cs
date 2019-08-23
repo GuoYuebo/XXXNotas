@@ -61,6 +61,15 @@ namespace XXXNotas.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Add 的本地化字符串。
+        /// </summary>
+        public static string AddNote {
+            get {
+                return ResourceManager.GetString("AddNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Category options 的本地化字符串。
         /// </summary>
         public static string CategoryOptions {

@@ -9,9 +9,15 @@
              mc:Ignorable="d ignore">
     
     <Application.Resources>
-        <!--Global View Model Locator-->
-        <vm:ViewModelLocator x:Key="Locator"
-                             d:IsDataSource="True" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/PresentationFramework.Aero;V4.0.0.0;31bf3856ad364e35;component\themes/aero.normalcolor.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <!--Global View Model Locator-->
+            <vm:ViewModelLocator x:Key="Locator"
+                                 d:IsDataSource="True" />
+        </ResourceDictionary>
     </Application.Resources>
     
 </Application>
