@@ -79,6 +79,33 @@ namespace XXXNotas.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Delete 的本地化字符串。
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Delete all notes 的本地化字符串。
+        /// </summary>
+        public static string DeleteAllNotes {
+            get {
+                return ResourceManager.GetString("DeleteAllNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Edit 的本地化字符串。
+        /// </summary>
+        public static string Edit {
+            get {
+                return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Zoom: 的本地化字符串。
         /// </summary>
         public static string Zoom {

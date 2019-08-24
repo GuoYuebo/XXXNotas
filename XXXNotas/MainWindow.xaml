@@ -25,6 +25,42 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <ItemsControl Background="Beige" Padding="15">
+                <ItemsControl.RenderTransform>
+                    <ScaleTransform ScaleX="{Binding Path=Value, ElementName=zoomSlider}" ScaleY="{Binding Path=Value, ElementName=zoomSlider}"/>
+                </ItemsControl.RenderTransform>
+                <ItemsControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{x:Static res:Strings.DeleteAllNotes}"/>
+                    </ContextMenu>
+                </ItemsControl.ContextMenu>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="{x:Static res:Strings.Edit}"/>
+                                    <MenuItem Header="{x:Static res:Strings.Delete}"/>
+                                    <Separator/>
+                                    <ComboBox>
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock/>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </ContextMenu>
+                            </Grid.ContextMenu>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -52,7 +88,7 @@
                 </TextBlock>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <TextBlock Text="{x:Static res:Strings.Zoom}"/>
-                    <Slider Width="125" Minimum="1" Maximum="4" Value="1" Margin="5 0"/>
+                    <Slider x:Name="zoomSlider" Width="125" Minimum="1" Maximum="4" Value="1" Margin="5 0"/>
                 </StackPanel>
             </DockPanel>
         </Border>
