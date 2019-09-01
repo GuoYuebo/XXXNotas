@@ -19,6 +19,11 @@ namespace XXXNotas.Model
         private bool _isDefault;
 
         /// <summary>
+        /// 默认构造函数
+        /// </summary>
+        public Category() : this("", "", "") { }
+
+        /// <summary>
         /// 初始化一个 <see cref="Category"/> 类
         /// </summary>
         /// <param name="name">目录名称</param>

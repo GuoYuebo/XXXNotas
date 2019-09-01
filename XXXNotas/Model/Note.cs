@@ -9,6 +9,7 @@ namespace XXXNotas.Model
     /// <summary>
     /// 笔记类 需要可序列化
     /// </summary>
+    [Serializable]
     class Note : Notifier
     {
         private string _content;

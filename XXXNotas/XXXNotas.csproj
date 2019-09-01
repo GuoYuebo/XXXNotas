@@ -79,6 +79,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Service\CategoryService.cs" />
+    <Compile Include="Service\ICategoryService.cs" />
+    <Compile Include="Service\INoteService.cs" />
+    <Compile Include="Service\NoteService.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
