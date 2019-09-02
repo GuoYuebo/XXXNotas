@@ -7,7 +7,7 @@ using XXXNotas.Model;
 
 namespace XXXNotas.Service
 {
-    interface INoteService
+    public interface INoteService
     {
         void Save(Note note);
 

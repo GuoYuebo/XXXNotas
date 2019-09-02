@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace XXXNotas.Model
     /// 目录类 需要可序列化
     /// </summary>
     [Serializable]
-    class Category : Notifier
+    public class Category : ObservableObject
     {
         private Guid _id;
         private string _name;
@@ -42,18 +43,8 @@ namespace XXXNotas.Model
         /// </summary>
         public Guid Id
         {
-            get
-            {
-                return _id;
-            }
-            private set
-            {
-                if(_id != value)
-                {
-                    _id = value;
-                    OnPropertyChanged("Id");
-                }
-            }
+            get { return _id; }
+            private set { Set(ref _id, value); }
         }
 
         /// <summary>
@@ -61,18 +52,8 @@ namespace XXXNotas.Model
         /// </summary>
         public string Name
         {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                if(_name != value)
-                {
-                    _name = value;
-                    OnPropertyChanged("Name");
-                }
-            }
+            get { return _name; }
+            set { Set(ref _name, value); }
         }
 
         /// <summary>
@@ -80,18 +61,8 @@ namespace XXXNotas.Model
         /// </summary>
         public string BackgroundColor
         {
-            get
-            {
-                return _backgroundColor;
-            }
-            set
-            {
-                if(_backgroundColor != value)
-                {
-                    _backgroundColor = value;
-                    OnPropertyChanged("BackgroundColor");
-                }
-            }
+            get { return _backgroundColor; }
+            set { Set(ref _backgroundColor, value); }
         }
 
         /// <summary>
@@ -99,18 +70,8 @@ namespace XXXNotas.Model
         /// </summary>
         public string FontColor
         {
-            get
-            {
-                return _fontColor;
-            }
-            set
-            {
-                if(_fontColor != value)
-                {
-                    _fontColor = value;
-                    OnPropertyChanged("FontColor");
-                }
-            }
+            get { return _fontColor; }
+            set { Set(ref _fontColor, value); }
         }
 
         /// <summary>
@@ -118,18 +79,8 @@ namespace XXXNotas.Model
         /// </summary>
         public bool IsDefault
         {
-            get
-            {
-                return _isDefault;
-            }
-            set
-            {
-                if(_isDefault != value)
-                {
-                    _isDefault = value;
-                    OnPropertyChanged("IsDefault");
-                }
-            }
+            get { return _isDefault; }
+            set { Set(ref _isDefault, value); }
         }
 
         /// <summary>

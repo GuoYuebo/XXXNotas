@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace XXXNotas.Model
     /// 笔记类 需要可序列化
     /// </summary>
     [Serializable]
-    class Note : Notifier
+    public class Note : ObservableObject
     {
         private string _content;
         private string _date;
@@ -37,18 +38,8 @@ namespace XXXNotas.Model
         /// </summary>
         public string Content
         {
-            get
-            {
-                return _content;
-            }
-            set
-            {
-                if(_content != value)
-                {
-                    _content = value;
-                    OnPropertyChanged("Content");
-                }
-            }
+            get { return _content; }
+            set { Set(ref _content, value); }
         }
 
         /// <summary>
@@ -56,18 +47,8 @@ namespace XXXNotas.Model
         /// </summary>
         public string Date
         {
-            get
-            {
-                return _date;
-            }
-            set
-            {
-                if(_date != value)
-                {
-                    _date = value;
-                    OnPropertyChanged("Date");
-                }
-            }
+            get { return _date; }
+            set { Set(ref _date, value); }
         }
 
         /// <summary>
@@ -75,18 +56,8 @@ namespace XXXNotas.Model
         /// </summary>
         public Category Category
         {
-            get
-            {
-                return _category;
-            }
-            set
-            {
-                if(_category != value)
-                {
-                    _category = value;
-                    OnPropertyChanged("Category");
-                }
-            }
+            get { return _category; }
+            set { Set(ref _category, value); }
         }
 
         /// <summary>

@@ -7,7 +7,7 @@ using XXXNotas.Model;
 
 namespace XXXNotas.Service
 {
-    interface ICategoryService
+    public interface ICategoryService
     {
         void SaveAll(IList<Category> categories);
 
