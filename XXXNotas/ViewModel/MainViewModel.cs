@@ -1,65 +1,166 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
+using Microsoft.Practices.ServiceLocation;
+using System;
+using System.Collections.ObjectModel;
+using XXXNotas.Messages;
 using XXXNotas.Model;
+using XXXNotas.Service;
 
 namespace XXXNotas.ViewModel
 {
     /// <summary>
     /// This class contains properties that the main View can data bind to.
-    /// <para>
-    /// See http://www.mvvmlight.net
-    /// </para>
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
-        private readonly IDataService _dataService;
+        #region 字段
+        private readonly ICategoryService _categoryService;
+        private readonly INoteService _noteService;
 
-        /// <summary>
-        /// The <see cref="WelcomeTitle" /> property's name.
-        /// </summary>
-        public const string WelcomeTitlePropertyName = "WelcomeTitle";
+        private ObservableCollection<Category> _categories;
+        private ObservableCollection<Note> _notes;
 
-        private string _welcomeTitle = string.Empty;
+        private Category _selectedCategory;
+        private Note _actualNote;
+        #endregion
 
-        /// <summary>
-        /// Gets the WelcomeTitle property.
-        /// Changes to that property's value raise the PropertyChanged event. 
-        /// </summary>
-        public string WelcomeTitle
+        #region 属性
+        public RelayCommand AddNoteCommand { get; private set; }
+        public RelayCommand<Note> EditNoteCommand { get; private set; }
+        public RelayCommand<Note> DeleteNoteCommand { get; private set; }
+        public RelayCommand DeleteAllNotesCommand { get; private set; }
+        public RelayCommand CategoryOptionsCommand { get; private set; }
+
+        private Category Trash { get; set; }
+        public ObservableCollection<Category> Categories
         {
-            get
+            get { return _categories; }
+            set { Set(ref _categories, value); }
+        }
+        public ObservableCollection<Note> Notes
+        {
+            get { return _notes; }
+            set { Set(ref _notes, value); }
+        }
+        public Category SelectedCategory
+        {
+            get { return _selectedCategory; }
+            set { Set(ref _selectedCategory, value); }
+        }
+        public Note ActualNote
+        {
+            get { return _actualNote; }
+            set { Set(ref _actualNote, value); }
+        }
+        #endregion
+
+        #region 公共方法
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        /// <param name="categoryService">目录服务</param>
+        /// <param name="noteService">笔记服务</param>
+        public MainViewModel(ICategoryService categoryService, INoteService noteService)
+        {
+            _categoryService = categoryService;
+            _noteService = noteService;
+
+            Categories = new ObservableCollection<Category>(_categoryService.FindAll());
+            Notes = new ObservableCollection<Note>(_noteService.FindAll());
+
+            // 若目录列表为空，则添加一个带welcome笔记的默认目录
+            if(Categories.Count == 0)
             {
-                return _welcomeTitle;
+                Category category = new Category(Resources.Strings.GeneralCat, "#33cc00", "#ffffff");
+                Categories.Add(category);
+                _categoryService.SaveAll(Categories);
+
+                Note note = new Note(Resources.Strings.WelcomeMessage, category);
+                Notes.Add(note);
+                _noteService.Save(note);
             }
-            set
-            {
-                Set(ref _welcomeTitle, value);
-            }
+
+            ActualNote = new Note();
+            SelectedCategory = Categories[0];
+            Trash = new Category("Trash", "#f8f8f8", "#777777");
+
+            AddNoteCommand = new RelayCommand(AddNote, CanAddNote);
+            EditNoteCommand = new RelayCommand<Note>(EditNote);
+            DeleteNoteCommand = new RelayCommand<Note>(DeleteNote);
+            DeleteAllNotesCommand = new RelayCommand(DeleteAllNotes);
+            CategoryOptionsCommand = new RelayCommand(OpenCategoryOptions);
+
+            Messenger.Default.Register<CategoryEditorChangesMessage>(this, MakingNewCatChanges);
+        }
+
+        #endregion
+
+        #region Command
+        /// <summary>
+        /// 返回是否可以进行笔记添加
+        /// </summary>
+        /// <returns></returns>
+        private bool CanAddNote()
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Initializes a new instance of the MainViewModel class.
+        /// 添加笔记命令函数
         /// </summary>
-        public MainViewModel(IDataService dataService)
+        private void AddNote()
         {
-            _dataService = dataService;
-            _dataService.GetData(
-                (item, error) =>
-                {
-                    if (error != null)
-                    {
-                        // Report error here
-                        return;
-                    }
-
-                    WelcomeTitle = item.Title;
-                });
+            throw new NotImplementedException();
         }
 
-        ////public override void Cleanup()
-        ////{
-        ////    // Clean up if needed
+        /// <summary>
+        /// 编辑笔记命令
+        /// </summary>
+        /// <param name="note">需要编辑的笔记</param>
+        private void EditNote(Note note)
+        {
 
-        ////    base.Cleanup();
-        ////}
+        }
+
+        /// <summary>
+        /// 删除笔记命令
+        /// </summary>
+        /// <param name="note">需要删除的笔记</param>
+        private void DeleteNote(Note note)
+        {
+
+        }
+
+        /// <summary>
+        /// 删除所有笔记命令
+        /// </summary>
+        private void DeleteAllNotes()
+        {
+
+        }
+
+        /// <summary>
+        /// 打开目录选项命令
+        /// </summary>
+        private void OpenCategoryOptions()
+        {
+
+        }
+        #endregion
+
+        #region 公共方法
+        /// <summary>
+        /// 响应目录变化
+        /// </summary>
+        /// <param name="message">目录变化信息</param>
+        private void MakingNewCatChanges(CategoryEditorChangesMessage message)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }

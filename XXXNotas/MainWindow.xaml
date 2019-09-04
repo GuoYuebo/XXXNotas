@@ -7,10 +7,11 @@
         xmlns:res="clr-namespace:XXXNotas.Resources"
         mc:Ignorable="d ignore"
         Height="480"
-        Icon="Icons/app_48.ico" 
+        Icon="Resources/Icons/app_48.ico" 
         Width="640"
         Title="XXXNotas"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
+        DataContext="{Binding Main, Source={StaticResource Locator}}"
+        d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -26,7 +27,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
-            <ItemsControl Background="Beige" Padding="15">
+            <ItemsControl Background="Beige" Padding="15" ItemsSource="{Binding Notes}">
                 <ItemsControl.RenderTransform>
                     <ScaleTransform ScaleX="{Binding Path=Value, ElementName=zoomSlider}" ScaleY="{Binding Path=Value, ElementName=zoomSlider}"/>
                 </ItemsControl.RenderTransform>
@@ -56,6 +57,16 @@
                                     </ComboBox>
                                 </ContextMenu>
                             </Grid.ContextMenu>
+                            <Border Background="{Binding Category.BackgroundColor}" Style="{StaticResource NoteBorderStyle}">
+                                <TextBlock Text="{Binding Date}" Foreground="{Binding Category.FontColor}"/>
+                            </Border>
+                            <Border x:Name="noteBorder" Grid.Column="1" Style="{StaticResource NoteBorderStyle}" Background="{Binding Category.BackgroundColor}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Content}" TextWrapping="WrapWithOverflow" Foreground="{Binding Category.FontColor}"/>
+                                    <Line X1="0" Y1="0" X2="{Binding ElementName=noteBorder,Path=ActualWidth}" Stroke="{Binding Category.FontColor}" StrokeThickness="1" Margin="0 5 0 0"/>
+                                    <TextBlock Text="{Binding Category.Name}" Foreground="{Binding Category.FontColor}" FontSize="10" HorizontalAlignment="Right"/>
+                                </StackPanel>
+                            </Border>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -74,7 +85,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <TextBox Grid.Column="1" Margin="7"/>
+            <TextBox Grid.Column="1" Margin="7" Text="{Binding ActualNote.Content}"/>
             <Button Grid.Column="2" Content="{x:Static res:Strings.AddNote}" Margin="7" MinWidth="75" IsDefault="True"/>
         </Grid>
         <Border Grid.Row="2" Padding="5" Background="#eaeaa0">

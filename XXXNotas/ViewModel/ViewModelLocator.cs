@@ -16,13 +16,6 @@ using XXXNotas.Model;
 
 namespace XXXNotas.ViewModel
 {
-    /// <summary>
-    /// This class contains static references to all the view models in the
-    /// application and provides an entry point for the bindings.
-    /// <para>
-    /// See http://www.mvvmlight.net
-    /// </para>
-    /// </summary>
     public class ViewModelLocator
     {
         static ViewModelLocator()
@@ -31,11 +24,11 @@ namespace XXXNotas.ViewModel
 
             if (ViewModelBase.IsInDesignModeStatic)
             {
-                SimpleIoc.Default.Register<IDataService, Design.DesignDataService>();
+                //SimpleIoc.Default.Register<IDataService, Design.DesignDataService>();
             }
             else
             {
-                SimpleIoc.Default.Register<IDataService, DataService>();
+                //SimpleIoc.Default.Register<IDataService, DataService>();
             }
 
             SimpleIoc.Default.Register<MainViewModel>();

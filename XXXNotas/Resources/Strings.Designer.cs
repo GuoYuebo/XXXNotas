@@ -106,6 +106,24 @@ namespace XXXNotas.Resources {
         }
         
         /// <summary>
+        ///   查找类似 General 的本地化字符串。
+        /// </summary>
+        public static string GeneralCat {
+            get {
+                return ResourceManager.GetString("GeneralCat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Welcome to XXX Notas :) 的本地化字符串。
+        /// </summary>
+        public static string WelcomeMessage {
+            get {
+                return ResourceManager.GetString("WelcomeMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Zoom: 的本地化字符串。
         /// </summary>
         public static string Zoom {

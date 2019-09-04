@@ -70,6 +70,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Design\DesignCategoryService.cs" />
+    <Compile Include="Design\DesignNoteService.cs" />
+    <Compile Include="Messages\CategoryEditorChangesMessage.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Note.cs" />
     <Compile Include="Resources\Strings.Designer.cs">
@@ -95,6 +98,9 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <DesignData Include="SampleData\MainViewModelSampleData.xaml">
+      <SubType>Designer</SubType>
+    </DesignData>
     <Page Include="Skins\MainSkin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -133,9 +139,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\app_48.ico" />
-    <Resource Include="Icons\warning_48.png" />
+    <Resource Include="Resources\Icons\app_48.ico" />
+    <Resource Include="Resources\Icons\warning_48.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

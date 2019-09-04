@@ -132,6 +132,12 @@
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="GeneralCat" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="WelcomeMessage" xml:space="preserve">
+    <value>Welcome to XXX Notas :)</value>
+  </data>
   <data name="Zoom" xml:space="preserve">
     <value>Zoom:</value>
   </data>
