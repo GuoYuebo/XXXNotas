@@ -72,7 +72,7 @@ namespace XXXNotas.ViewModel
             Notes = new ObservableCollection<Note>(_noteService.FindAll());
 
             // 若目录列表为空，则添加一个带welcome笔记的默认目录
-            if(Categories.Count == 0)
+            if (Categories.Count == 0)
             {
                 Category category = new Category(Resources.Strings.GeneralCat, "#33cc00", "#ffffff");
                 Categories.Add(category);
@@ -96,6 +96,14 @@ namespace XXXNotas.ViewModel
             Messenger.Default.Register<CategoryEditorChangesMessage>(this, MakingNewCatChanges);
         }
 
+        /// <summary>
+        /// 响应目录变化
+        /// </summary>
+        /// <param name="message">目录变化信息</param>
+        private void MakingNewCatChanges(CategoryEditorChangesMessage message)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #region Command
@@ -108,59 +116,48 @@ namespace XXXNotas.ViewModel
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// 添加笔记命令函数
-        /// </summary>
+        ///// <summary>
+        ///// 添加笔记命令函数
+        ///// </summary>
         private void AddNote()
         {
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// 编辑笔记命令
-        /// </summary>
-        /// <param name="note">需要编辑的笔记</param>
+        ///// <summary>
+        ///// 编辑笔记命令
+        ///// </summary>
+        ///// <param name="note">需要编辑的笔记</param>
         private void EditNote(Note note)
         {
 
         }
 
-        /// <summary>
-        /// 删除笔记命令
-        /// </summary>
-        /// <param name="note">需要删除的笔记</param>
+        ///// <summary>
+        ///// 删除笔记命令
+        ///// </summary>
+        ///// <param name="note">需要删除的笔记</param>
         private void DeleteNote(Note note)
         {
 
         }
 
-        /// <summary>
-        /// 删除所有笔记命令
-        /// </summary>
+        ///// <summary>
+        ///// 删除所有笔记命令
+        ///// </summary>
         private void DeleteAllNotes()
         {
 
         }
 
-        /// <summary>
-        /// 打开目录选项命令
-        /// </summary>
+        ///// <summary>
+        ///// 打开目录选项命令
+        ///// </summary>
         private void OpenCategoryOptions()
         {
 
         }
         #endregion
 
-        #region 公共方法
-        /// <summary>
-        /// 响应目录变化
-        /// </summary>
-        /// <param name="message">目录变化信息</param>
-        private void MakingNewCatChanges(CategoryEditorChangesMessage message)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
     }
 }

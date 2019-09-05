@@ -34,4 +34,23 @@
             </Model:Note.Category>
         </Model:Note>
     </ViewModel:MainViewModel.Notes>
+    <ViewModel:MainViewModel.Categories>
+        <Model:Category BackgroundColor="#FF110000" FontColor="#FFFFFFFF" Name="Phasellus consequat 1">
+            <Model:Category.Id>
+                <System:Guid/>
+            </Model:Category.Id>
+        </Model:Category>
+        <Model:Category BackgroundColor="#FF110000" FontColor="#FFFFFFFF" Name="Phasellus consequat 2">
+            <Model:Category.Id>
+                <System:Guid/>
+            </Model:Category.Id>
+        </Model:Category>
+    </ViewModel:MainViewModel.Categories>
+    <ViewModel:MainViewModel.SelectedCategory>
+        <Model:Category BackgroundColor="#FF110000" FontColor="#FFFFFFFF" Name="Phasellus consequat 1">
+            <Model:Category.Id>
+                <System:Guid/>
+            </Model:Category.Id>
+        </Model:Category>
+    </ViewModel:MainViewModel.SelectedCategory>
 </ViewModel:MainViewModel>

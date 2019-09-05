@@ -78,10 +78,11 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <ComboBox Grid.Column="0" Height="20" MinWidth="75" Margin="7">
+            <ComboBox Grid.Column="0" Height="20" MinWidth="75" Margin="7"
+                      ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="good"/>
+                        <TextBlock Text="{Binding Name}"/>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>

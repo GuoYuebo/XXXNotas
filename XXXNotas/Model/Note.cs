@@ -31,6 +31,7 @@ namespace XXXNotas.Model
         {
             _content = content;
             _category = category;
+            _date = DateTime.Now.ToString("yyyy-MM-dd");
         }
 
         /// <summary>

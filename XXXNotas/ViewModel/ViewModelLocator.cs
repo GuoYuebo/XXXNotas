@@ -12,7 +12,9 @@
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using System;
 using XXXNotas.Model;
+using XXXNotas.Service;
 
 namespace XXXNotas.ViewModel
 {
@@ -29,6 +31,8 @@ namespace XXXNotas.ViewModel
             else
             {
                 //SimpleIoc.Default.Register<IDataService, DataService>();
+                SimpleIoc.Default.Register<INoteService, NoteService>();
+                SimpleIoc.Default.Register<ICategoryService, CategoryService>();
             }
 
             SimpleIoc.Default.Register<MainViewModel>();
