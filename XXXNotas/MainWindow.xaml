@@ -58,7 +58,7 @@
                                 </ContextMenu>
                             </Grid.ContextMenu>
                             <Border Background="{Binding Category.BackgroundColor}" Style="{StaticResource NoteBorderStyle}">
-                                <TextBlock Text="{Binding Date}" Foreground="{Binding Category.FontColor}"/>
+                                <TextBlock Text="{Binding Date}" VerticalAlignment="Center" Foreground="{Binding Category.FontColor}"/>
                             </Border>
                             <Border x:Name="noteBorder" Grid.Column="1" Style="{StaticResource NoteBorderStyle}" Background="{Binding Category.BackgroundColor}">
                                 <StackPanel>
@@ -87,7 +87,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <TextBox Grid.Column="1" Margin="7" Text="{Binding ActualNote.Content}"/>
-            <Button Grid.Column="2" Content="{x:Static res:Strings.AddNote}" Margin="7" MinWidth="75" IsDefault="True"/>
+            <Button Grid.Column="2" Content="{x:Static res:Strings.AddNote}" Command="{Binding AddNoteCommand}" Margin="7" MinWidth="75" IsDefault="True"/>
         </Grid>
         <Border Grid.Row="2" Padding="5" Background="#eaeaa0">
             <DockPanel>

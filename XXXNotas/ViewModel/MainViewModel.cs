@@ -113,7 +113,7 @@ namespace XXXNotas.ViewModel
         /// <returns></returns>
         private bool CanAddNote()
         {
-            throw new NotImplementedException();
+            return SelectedCategory != null;
         }
 
         ///// <summary>
@@ -121,7 +121,17 @@ namespace XXXNotas.ViewModel
         ///// </summary>
         private void AddNote()
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(ActualNote.Content)) return;
+
+            ActualNote.Category = SelectedCategory;
+
+            if (!Notes.Contains(ActualNote))
+            {
+                Notes.Add(ActualNote);
+                _noteService.Save(ActualNote);
+            }
+
+            ActualNote = new Note();
         }
 
         ///// <summary>
