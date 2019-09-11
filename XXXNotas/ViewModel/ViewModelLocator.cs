@@ -31,10 +31,11 @@ namespace XXXNotas.ViewModel
             else
             {
                 //SimpleIoc.Default.Register<IDataService, DataService>();
-                SimpleIoc.Default.Register<INoteService, NoteService>();
-                SimpleIoc.Default.Register<ICategoryService, CategoryService>();
             }
+            SimpleIoc.Default.Register<INoteService, NoteService>();
+            SimpleIoc.Default.Register<ICategoryService, CategoryService>();
 
+            SimpleIoc.Default.Register<CategoryEditorViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();
         }
 
@@ -49,6 +50,17 @@ namespace XXXNotas.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
+            }
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
+            "CA1822:MarkMembersAsStatic",
+            Justification = "This non-static member is needed for data binding purposes.")]
+        public CategoryEditorViewModel CategoryEditor
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<CategoryEditorViewModel>();
             }
         }
 

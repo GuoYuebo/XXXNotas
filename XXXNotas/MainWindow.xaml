@@ -92,7 +92,7 @@
         <Border Grid.Row="2" Padding="5" Background="#eaeaa0">
             <DockPanel>
                 <TextBlock VerticalAlignment="Center">
-                    <Hyperlink>
+                    <Hyperlink Command="{Binding CategoryOptionsCommand}">
                         <InlineUIContainer>
                             <TextBlock Text="{Binding Source={StaticResource LocStrings},Path=CategoryOptions}"/>
                         </InlineUIContainer>

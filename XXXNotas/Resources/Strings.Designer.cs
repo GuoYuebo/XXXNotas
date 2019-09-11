@@ -61,6 +61,15 @@ namespace XXXNotas.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Accept 的本地化字符串。
+        /// </summary>
+        public static string Accept {
+            get {
+                return ResourceManager.GetString("Accept", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Add 的本地化字符串。
         /// </summary>
         public static string AddNote {
@@ -70,11 +79,38 @@ namespace XXXNotas.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Background color 的本地化字符串。
+        /// </summary>
+        public static string BackgroundColor {
+            get {
+                return ResourceManager.GetString("BackgroundColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Category data 的本地化字符串。
+        /// </summary>
+        public static string CategoryData {
+            get {
+                return ResourceManager.GetString("CategoryData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Category options 的本地化字符串。
         /// </summary>
         public static string CategoryOptions {
             get {
                 return ResourceManager.GetString("CategoryOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Default 的本地化字符串。
+        /// </summary>
+        public static string Default {
+            get {
+                return ResourceManager.GetString("Default", resourceCulture);
             }
         }
         
@@ -97,6 +133,24 @@ namespace XXXNotas.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Would you like to delete its notes too? 的本地化字符串。
+        /// </summary>
+        public static string DeleteNotesToo {
+            get {
+                return ResourceManager.GetString("DeleteNotesToo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Delete selected 的本地化字符串。
+        /// </summary>
+        public static string DeleteSelected {
+            get {
+                return ResourceManager.GetString("DeleteSelected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Edit 的本地化字符串。
         /// </summary>
         public static string Edit {
@@ -106,11 +160,65 @@ namespace XXXNotas.Resources {
         }
         
         /// <summary>
+        ///   查找类似 This is an example text for the preview :) 的本地化字符串。
+        /// </summary>
+        public static string ExampleTextPreview {
+            get {
+                return ResourceManager.GetString("ExampleTextPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Font color 的本地化字符串。
+        /// </summary>
+        public static string FontColor {
+            get {
+                return ResourceManager.GetString("FontColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 General 的本地化字符串。
         /// </summary>
         public static string GeneralCat {
             get {
                 return ResourceManager.GetString("GeneralCat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Name 的本地化字符串。
+        /// </summary>
+        public static string Name {
+            get {
+                return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 New category 的本地化字符串。
+        /// </summary>
+        public static string NewCategory {
+            get {
+                return ResourceManager.GetString("NewCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Preview 的本地化字符串。
+        /// </summary>
+        public static string Preview {
+            get {
+                return ResourceManager.GetString("Preview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Select 的本地化字符串。
+        /// </summary>
+        public static string Select {
+            get {
+                return ResourceManager.GetString("Select", resourceCulture);
             }
         }
         

@@ -117,11 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
   <data name="AddNote" xml:space="preserve">
     <value>Add</value>
   </data>
+  <data name="BackgroundColor" xml:space="preserve">
+    <value>Background color</value>
+  </data>
+  <data name="BadRGB" xml:space="preserve">
+    <value>BadRGB</value>
+  </data>
+  <data name="CategoryData" xml:space="preserve">
+    <value>Category data</value>
+  </data>
   <data name="CategoryOptions" xml:space="preserve">
     <value>Category options</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Default</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
@@ -129,11 +144,35 @@
   <data name="DeleteAllNotes" xml:space="preserve">
     <value>Delete all notes</value>
   </data>
+  <data name="DeleteNotesToo" xml:space="preserve">
+    <value>Would you like to delete its notes too?</value>
+  </data>
+  <data name="DeleteSelected" xml:space="preserve">
+    <value>Delete selected</value>
+  </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="ExampleTextPreview" xml:space="preserve">
+    <value>This is an example text for the preview :)</value>
+  </data>
+  <data name="FontColor" xml:space="preserve">
+    <value>Font color</value>
+  </data>
   <data name="GeneralCat" xml:space="preserve">
     <value>General</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NewCategory" xml:space="preserve">
+    <value>New category</value>
+  </data>
+  <data name="Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
   </data>
   <data name="WelcomeMessage" xml:space="preserve">
     <value>Welcome to XXX Notas :)</value>

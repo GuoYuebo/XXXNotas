@@ -165,7 +165,7 @@ namespace XXXNotas.ViewModel
         ///// </summary>
         private void OpenCategoryOptions()
         {
-
+            (new View.CategoryEditorView()).ShowDialog();
         }
         #endregion
 

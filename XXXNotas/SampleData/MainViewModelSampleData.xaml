@@ -1,8 +1,8 @@
 ﻿<ViewModel:MainViewModel xmlns:ViewModel="clr-namespace:XXXNotas.ViewModel"
-                         xmlns:Model="clr-namespace:XXXNotas.Model"
-                         xmlns:System="clr-namespace:System;assembly=mscorlib"
-                         xmlns:GalaSoft_MvvmLight_Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight"
-                         IsInDesignMode="True">
+    xmlns:Model="clr-namespace:XXXNotas.Model"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:GalaSoft_MvvmLight_Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight"
+    IsInDesignMode="True">
     <ViewModel:MainViewModel.ActualNote>
         <Model:Note Content="Sample Note 1" Date="Sample Note Date1">
             <Model:Note.Category>

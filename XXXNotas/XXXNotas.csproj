@@ -25,6 +25,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -70,6 +71,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Debug.cs" />
     <Compile Include="Design\DesignCategoryService.cs" />
     <Compile Include="Design\DesignNoteService.cs" />
     <Compile Include="Messages\CategoryEditorChangesMessage.cs" />
@@ -84,8 +86,12 @@
     <Compile Include="Service\ICategoryService.cs" />
     <Compile Include="Service\INoteService.cs" />
     <Compile Include="Service\NoteService.cs" />
+    <Compile Include="ViewModel\CategoryEditorViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\CategoryEditorView.xaml.cs">
+      <DependentUpon>CategoryEditorView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -101,9 +107,16 @@
     <DesignData Include="SampleData\MainViewModelSampleData.xaml">
       <SubType>Designer</SubType>
     </DesignData>
+    <DesignData Include="SampleData\CategoryEditorViewModelSampleData.xaml">
+      <SubType>Designer</SubType>
+    </DesignData>
     <Page Include="Skins\MainSkin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\CategoryEditorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
