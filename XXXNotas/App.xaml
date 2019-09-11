@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:ignore="http://www.galasoft.ch/ignore"
+             xmlns:res="clr-namespace:XXXNotas.Resources"
              StartupUri="MainWindow.xaml"
              mc:Ignorable="d ignore">
     
@@ -17,6 +18,9 @@
             <!--Global View Model Locator-->
             <vm:ViewModelLocator x:Key="Locator"
                                  d:IsDataSource="True" />
+            
+            <!--字符串资源-->
+            <res:Strings x:Key="LocStrings"/>
         </ResourceDictionary>
     </Application.Resources>
     

@@ -4,7 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
-        xmlns:res="clr-namespace:XXXNotas.Resources"
         mc:Ignorable="d ignore"
         Height="480"
         Icon="Resources/Icons/app_48.ico" 
@@ -33,7 +32,7 @@
                 </ItemsControl.RenderTransform>
                 <ItemsControl.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="{x:Static res:Strings.DeleteAllNotes}"/>
+                        <MenuItem Header="{Binding Source={StaticResource LocStrings},Path=DeleteAllNotes}"/>
                     </ContextMenu>
                 </ItemsControl.ContextMenu>
                 <ItemsControl.ItemTemplate>
@@ -45,8 +44,9 @@
                             </Grid.ColumnDefinitions>
                             <Grid.ContextMenu>
                                 <ContextMenu>
-                                    <MenuItem Header="{x:Static res:Strings.Edit}"/>
-                                    <MenuItem Header="{x:Static res:Strings.Delete}"/>
+                                    <MenuItem Header="{Binding Source={StaticResource LocStrings},Path=DeleteAllNotes}"/>
+                                    <MenuItem Header="{Binding Path=Edit, Source={StaticResource LocStrings}}"/>
+                                    <MenuItem Header="{Binding Path=Delete, Source={StaticResource LocStrings}}"/>
                                     <Separator/>
                                     <ComboBox>
                                         <ComboBox.ItemTemplate>
@@ -87,19 +87,19 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <TextBox Grid.Column="1" Margin="7" Text="{Binding ActualNote.Content}"/>
-            <Button Grid.Column="2" Content="{x:Static res:Strings.AddNote}" Command="{Binding AddNoteCommand}" Margin="7" MinWidth="75" IsDefault="True"/>
+            <Button Grid.Column="2" Content="{Binding Source={StaticResource LocStrings},Path=AddNote}" Command="{Binding AddNoteCommand}" Margin="7" MinWidth="75" IsDefault="True"/>
         </Grid>
         <Border Grid.Row="2" Padding="5" Background="#eaeaa0">
             <DockPanel>
                 <TextBlock VerticalAlignment="Center">
                     <Hyperlink>
                         <InlineUIContainer>
-                            <TextBlock Text="{x:Static res:Strings.CategoryOptions}"/>
+                            <TextBlock Text="{Binding Source={StaticResource LocStrings},Path=CategoryOptions}"/>
                         </InlineUIContainer>
                     </Hyperlink>                
                 </TextBlock>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <TextBlock Text="{x:Static res:Strings.Zoom}"/>
+                    <TextBlock Text="{Binding Source={StaticResource LocStrings},Path=Zoom}"/>
                     <Slider x:Name="zoomSlider" Width="125" Minimum="1" Maximum="4" Value="1" Margin="5 0"/>
                 </StackPanel>
             </DockPanel>
