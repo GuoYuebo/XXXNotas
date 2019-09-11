@@ -10,7 +10,6 @@ namespace XXXNotas.Model
     /// <summary>
     /// 笔记类 需要可序列化
     /// </summary>
-    [Serializable]
     public class Note : ObservableObject
     {
         private string _content;

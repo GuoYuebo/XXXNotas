@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 namespace XXXNotas.Model
 {
     /// <summary>
-    /// 目录类 需要可序列化
+    /// 目录类
     /// </summary>
-    [Serializable]
     public class Category : ObservableObject
     {
         private Guid _id;
@@ -44,7 +43,7 @@ namespace XXXNotas.Model
         public Guid Id
         {
             get { return _id; }
-            private set { Set(ref _id, value); }
+            set { Set(ref _id, value); }
         }
 
         /// <summary>
