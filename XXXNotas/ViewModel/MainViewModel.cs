@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Practices.ServiceLocation;
@@ -9,6 +9,7 @@ using System.Linq;
 using XXXNotas.Messages;
 using XXXNotas.Model;
 using XXXNotas.Service;
+using XXXNotas.View;
 
 namespace XXXNotas.ViewModel
 {
@@ -96,7 +97,7 @@ namespace XXXNotas.ViewModel
             AddNoteCommand = new RelayCommand(AddNote, CanAddNote);
             EditNoteCommand = new RelayCommand<Note>(EditNote);
             DeleteNoteCommand = new RelayCommand<Note>(DeleteNote);
-            DeleteAllNotesCommand = new RelayCommand(DeleteAllNotes);
+            DeleteAllNotesCommand = new RelayCommand(DeleteAllNotes, () => Notes.Count > 0);
             CategoryOptionsCommand = new RelayCommand(OpenCategoryOptions);
 
             Messenger.Default.Register<CategoryEditorChangesMessage>(this, MakingNewCatChanges);
@@ -163,7 +164,11 @@ namespace XXXNotas.ViewModel
         /// </summary>
         private void DeleteAllNotes()
         {
-            throw new NotImplementedException();
+            if ((new DeleteAllMsgBox()).ShowDialog() == true)
+            {
+                _noteService.Reset();
+                Notes = new ObservableCollection<Note>();
+            }
         }
 
         /// <summary>

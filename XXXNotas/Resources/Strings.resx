@@ -141,6 +141,12 @@
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="DeleteAllDialogMessage" xml:space="preserve">
+    <value>Are you sure?</value>
+  </data>
+  <data name="DeleteAllDialogTitle" xml:space="preserve">
+    <value>Deleting All Notes</value>
+  </data>
   <data name="DeleteAllNotes" xml:space="preserve">
     <value>Delete all notes</value>
   </data>

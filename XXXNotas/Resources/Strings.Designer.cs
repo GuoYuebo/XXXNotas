@@ -133,6 +133,24 @@ namespace XXXNotas.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Are you sure? 的本地化字符串。
+        /// </summary>
+        public static string DeleteAllDialogMessage {
+            get {
+                return ResourceManager.GetString("DeleteAllDialogMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Deleting All Notes 的本地化字符串。
+        /// </summary>
+        public static string DeleteAllDialogTitle {
+            get {
+                return ResourceManager.GetString("DeleteAllDialogTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Delete all notes 的本地化字符串。
         /// </summary>
         public static string DeleteAllNotes {
