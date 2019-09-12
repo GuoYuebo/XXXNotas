@@ -32,7 +32,8 @@
                 </ItemsControl.RenderTransform>
                 <ItemsControl.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="{Binding Source={StaticResource LocStrings},Path=DeleteAllNotes}"/>
+                        <MenuItem Header="{Binding Source={StaticResource LocStrings},Path=DeleteAllNotes}"
+                            Command="{Binding DeleteAllNotesCommand}"/>
                     </ContextMenu>
                 </ItemsControl.ContextMenu>
                 <ItemsControl.ItemTemplate>

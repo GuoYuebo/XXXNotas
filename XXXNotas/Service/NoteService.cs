@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using XXXNotas.Model;
+using XXXNotas.Service;
 
 namespace XXXNotas.Service
 {
@@ -42,6 +43,12 @@ namespace XXXNotas.Service
         public void Save(Note note)
         {
             _notes.Add(note);
+            Serialize();
+        }
+
+        public void SaveAll(List<Note> notes)
+        {
+            _notes = notes;
             Serialize();
         }
         #endregion
@@ -87,6 +94,7 @@ namespace XXXNotas.Service
         {
             return new SerializedNote()
             {
+                Id = note.Id,
                 Content = note.Content,
                 Date = note.Date,
                 Category = SerializedCategory.SerializeCategory(note.Category)
@@ -97,6 +105,7 @@ namespace XXXNotas.Service
         {
             return new Note()
             {
+                Id = note.Id,
                 Content = note.Content,
                 Date = note.Date,
                 Category = SerializedCategory.DeserializeCategory(note.Category)
@@ -108,6 +117,7 @@ namespace XXXNotas.Service
     [Serializable]
     class SerializedNote
     {
+        public Guid Id;
         public string Content;
         public string Date;
         public SerializedCategory Category;

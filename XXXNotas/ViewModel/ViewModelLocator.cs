@@ -24,14 +24,6 @@ namespace XXXNotas.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            if (ViewModelBase.IsInDesignModeStatic)
-            {
-                //SimpleIoc.Default.Register<IDataService, Design.DesignDataService>();
-            }
-            else
-            {
-                //SimpleIoc.Default.Register<IDataService, DataService>();
-            }
             SimpleIoc.Default.Register<INoteService, NoteService>();
             SimpleIoc.Default.Register<ICategoryService, CategoryService>();
 
@@ -62,13 +54,6 @@ namespace XXXNotas.ViewModel
             {
                 return ServiceLocator.Current.GetInstance<CategoryEditorViewModel>();
             }
-        }
-
-        /// <summary>
-        /// Cleans up all the resources.
-        /// </summary>
-        public static void Cleanup()
-        {
         }
     }
 }

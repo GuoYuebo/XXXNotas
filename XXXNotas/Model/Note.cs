@@ -12,6 +12,7 @@ namespace XXXNotas.Model
     /// </summary>
     public class Note : ObservableObject
     {
+        private Guid _id;
         private string _content;
         private string _date;
         private Category _category;
@@ -28,9 +29,16 @@ namespace XXXNotas.Model
         /// <param name="category">目录</param>
         public Note(string content, Category category)
         {
+            _id = Guid.NewGuid();
             _content = content;
             _category = category;
             _date = DateTime.Now.ToString("yyyy-MM-dd");
+        }
+
+        public Guid Id
+        {
+            get { return _id; }
+            set { Set(ref _id, value); }
         }
 
         /// <summary>
@@ -59,26 +67,5 @@ namespace XXXNotas.Model
             get { return _category; }
             set { Set(ref _category, value); }
         }
-
-        /// <summary>
-        /// 重写判断对象相同的方法
-        /// </summary>
-        /// <param name="obj">需要比较的对象</param>
-        /// <returns>true表示相同</returns>
-        public override bool Equals(object obj)
-        {
-            Note note = obj as Note;
-            return note == null && (note.Content == this.Content && note.Category.Equals(this));
-        }
-
-        /// <summary>
-        /// 重写Equals方法后需要重写GetHashCode方法
-        /// </summary>
-        /// <returns></returns>
-        public override int GetHashCode()
-        {
-            return Content.GetHashCode() + Category.GetHashCode();
-        }
-
     }
 }

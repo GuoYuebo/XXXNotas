@@ -16,5 +16,7 @@ namespace XXXNotas.Service
         void Reset();
 
         IList<Note> FindAll();
+
+        void SaveAll(List<Note> notes);
     }
 }

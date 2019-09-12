@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using XXXNotas.Messages;
 using XXXNotas.Model;
 using XXXNotas.Service;
@@ -29,27 +30,33 @@ namespace XXXNotas.ViewModel
 
         #region 属性
         public RelayCommand AddNoteCommand { get; private set; }
+
         public RelayCommand<Note> EditNoteCommand { get; private set; }
+
         public RelayCommand<Note> DeleteNoteCommand { get; private set; }
+
         public RelayCommand DeleteAllNotesCommand { get; private set; }
+
         public RelayCommand CategoryOptionsCommand { get; private set; }
 
-        private Category Trash { get; set; }
         public ObservableCollection<Category> Categories
         {
             get { return _categories; }
             set { Set(ref _categories, value); }
         }
+
         public ObservableCollection<Note> Notes
         {
             get { return _notes; }
             set { Set(ref _notes, value); }
         }
+
         public Category SelectedCategory
         {
             get { return _selectedCategory; }
             set { Set(ref _selectedCategory, value); }
         }
+
         public Note ActualNote
         {
             get { return _actualNote; }
@@ -85,7 +92,6 @@ namespace XXXNotas.ViewModel
 
             ActualNote = new Note();
             SelectedCategory = Categories[0];
-            Trash = new Category("Trash", "#f8f8f8", "#777777");
 
             AddNoteCommand = new RelayCommand(AddNote, CanAddNote);
             EditNoteCommand = new RelayCommand<Note>(EditNote);
@@ -125,7 +131,7 @@ namespace XXXNotas.ViewModel
 
             ActualNote.Category = SelectedCategory;
 
-            if (!Notes.Contains(ActualNote))
+            if (!Notes.Any(c => c.Id == ActualNote.Id))
             {
                 Notes.Add(ActualNote);
                 _noteService.Save(ActualNote);
@@ -134,40 +140,54 @@ namespace XXXNotas.ViewModel
             ActualNote = new Note();
         }
 
-        ///// <summary>
-        ///// 编辑笔记命令
-        ///// </summary>
-        ///// <param name="note">需要编辑的笔记</param>
+        /// <summary>
+        /// 编辑笔记命令
+        /// </summary>
+        /// <param name="note">需要编辑的笔记</param>
         private void EditNote(Note note)
         {
-
+            throw new NotImplementedException();
         }
 
-        ///// <summary>
-        ///// 删除笔记命令
-        ///// </summary>
-        ///// <param name="note">需要删除的笔记</param>
+        /// <summary>
+        /// 删除笔记命令
+        /// </summary>
+        /// <param name="note">需要删除的笔记</param>
         private void DeleteNote(Note note)
         {
-
+            throw new NotImplementedException();
         }
 
-        ///// <summary>
-        ///// 删除所有笔记命令
-        ///// </summary>
+        /// <summary>
+        /// 删除所有笔记命令
+        /// </summary>
         private void DeleteAllNotes()
         {
-
+            throw new NotImplementedException();
         }
 
-        ///// <summary>
-        ///// 打开目录选项命令
-        ///// </summary>
+        /// <summary>
+        /// 打开目录选项命令
+        /// </summary>
         private void OpenCategoryOptions()
         {
             (new View.CategoryEditorView()).ShowDialog();
+            UpdateCategory();
         }
         #endregion
 
+        #region 私有方法
+        /// <summary>
+        /// 目录配置后，更新日记对应的目录
+        /// </summary>
+        private void UpdateCategory()
+        {
+            foreach(var item in Notes)
+            {
+                item.Category = Categories.FirstOrDefault(c => c.Id == item.Category.Id);
+            }
+            _noteService.SaveAll(Notes.ToList());
+        }
+        #endregion
     }
 }

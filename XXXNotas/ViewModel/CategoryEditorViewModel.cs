@@ -4,9 +4,11 @@ using Microsoft.Samples.CustomControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using XXXNotas.Model;
 using XXXNotas.Service;
+using XXXNotas.Utilities;
 
 namespace XXXNotas.ViewModel
 {
@@ -17,10 +19,9 @@ namespace XXXNotas.ViewModel
         private ObservableCollection<Category> _categories;
         private Category _selectedCategory;
         private Category _defaultCategory;
-        //private bool _defaultCatChanged = false;
-        //private bool _defaultCatChanged;
         private bool _onCategoryUpdate = false;
         private bool _deleteNotesToo = true;
+        private bool _isValid = true;
         private List<Guid> _notesToDelete;
         private List<Guid> _notesToTrash;
         #endregion
@@ -32,6 +33,8 @@ namespace XXXNotas.ViewModel
         public RelayCommand NewCategoryCommand { get; private set; }
         public RelayCommand<object> DeleteCategoryCommand { get; private set; }
         public RelayCommand AcceptCategoryCommand { get; private set; }
+        public RelayCommand SelectFontColorCommand { get; private set; }
+
         public ObservableCollection<Category> Categories
         {
             get { return _categories; }
@@ -51,6 +54,11 @@ namespace XXXNotas.ViewModel
         {
             get { return _deleteNotesToo; }
             set { Set(ref _deleteNotesToo, value); }
+        }
+        public bool IsValid
+        {
+            get { return _isValid; }
+            set { Set(ref _isValid, value); }
         }
         public List<Guid> NotesToDelete
         {
@@ -74,9 +82,10 @@ namespace XXXNotas.ViewModel
             DefaultCategoryChangedCommand = new RelayCommand<Category>(DefaultCategoryChanged);
             CategoryBeenSelected = new RelayCommand(() => OnCategoryUpdate = true);
             SelectBgColorCommand = new RelayCommand(SelectBgColor, () => OnCategoryUpdate);
+            SelectFontColorCommand = new RelayCommand(SelectFontColor, () => OnCategoryUpdate);
             NewCategoryCommand = new RelayCommand(NewCategory, () => !OnCategoryUpdate);
             DeleteCategoryCommand = new RelayCommand<object>(DeleteCategory, category => OnCategoryUpdate && Categories.Count > 1 && SelectedCategory != null);
-            AcceptCategoryCommand = new RelayCommand(AcceptCategory, () => OnCategoryUpdate);
+            AcceptCategoryCommand = new RelayCommand(AcceptCategory, () => OnCategoryUpdate && IsValid);
 
             NotesToDelete = new List<Guid>();
         }
@@ -88,15 +97,15 @@ namespace XXXNotas.ViewModel
             _defaultCategory.IsDefault = false;
             category.IsDefault = true;
             _defaultCategory = category;
-            //_defaultCatChanged = true;
         }
 
         private void SelectBgColor()
         {
-            ColorPickerDialog dialog = new ColorPickerDialog()
+            string color = SelectColor(SelectedCategory.BackgroundColor);
+            if (!string.IsNullOrEmpty(color))
             {
-                //StartingColor = SelectedCategory.BackgroundColor.toco
-            };
+                SelectedCategory.BackgroundColor = color;
+            }
         }
 
         private void NewCategory()
@@ -107,7 +116,8 @@ namespace XXXNotas.ViewModel
                 BackgroundColor = "#FFFFFF",
                 FontColor = "#000000"
             };
-            if (!_categories.Contains(category))
+            //if (!_categories.Contains(category))
+            if (!_categories.Any(c => c.Id == category.Id))
             {
                 _categories.Add(category);
             }
@@ -143,6 +153,31 @@ namespace XXXNotas.ViewModel
             SelectedCategory = null;
             _categoryService.SaveAll(Categories);
             OnCategoryUpdate = false;
+        }
+
+        private void SelectFontColor()
+        {
+            string color = SelectColor(SelectedCategory.FontColor);
+            if (!string.IsNullOrEmpty(color))
+            {
+                SelectedCategory.FontColor = color;
+            }
+        }
+        #endregion
+
+        #region 私有方法
+        private string SelectColor(string color)
+        {
+            ColorPickerDialog dialog = new ColorPickerDialog()
+            {
+                StartingColor = color.ToColor()
+            };
+            bool? result = dialog.ShowDialog();
+            if (result != null && (bool)result)
+            {
+                return dialog.SelectedColor.ToString();
+            }
+            return "";
         }
         #endregion
     }

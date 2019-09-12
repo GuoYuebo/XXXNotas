@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using XXXNotas.ViewModel;
 
 namespace XXXNotas.View
 {
@@ -22,6 +23,12 @@ namespace XXXNotas.View
         public CategoryEditorView()
         {
             InitializeComponent();
+        }
+
+        private void OnColorChange(object sender, TextChangedEventArgs e)
+        {
+            ((CategoryEditorViewModel)DataContext).IsValid = !Validation.GetHasError(backgroundTxt)
+                && !Validation.GetHasError(fontColorTxt);
         }
     }
 }

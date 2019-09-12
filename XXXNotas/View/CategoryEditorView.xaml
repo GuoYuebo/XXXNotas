@@ -5,6 +5,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        xmlns:utilities="clr-namespace:XXXNotas.Utilities"
         mc:Ignorable="d" Height="654" Width="586" Title="{Binding Source={StaticResource LocStrings},Path=CategoryOptions}"
         Background="White" DataContext="{Binding Path=CategoryEditor,Source={StaticResource Locator}}"
         d:DataContext="{d:DesignData /SampleData/CategoryEditorViewModelSampleData.xaml}">
@@ -98,8 +99,17 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Rectangle>
-                            <TextBox x:Name="backgroundTxt" Grid.Row="1" Grid.Column="1" Margin="3 3 3 5" Text="{Binding Path=SelectedCategory.BackgroundColor}"/>
-                            <Button Grid.Row="1" Grid.Column="2" MinWidth="75" Margin="3 3 3 5" Content="{Binding Source={StaticResource LocStrings},Path=Select}"/>
+                            <TextBox x:Name="backgroundTxt" Grid.Row="1" Grid.Column="1" Margin="3 3 3 5" TextChanged="OnColorChange">
+                                <TextBox.Text>
+                                    <Binding Path="SelectedCategory.BackgroundColor" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <utilities:RgbValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <Button Grid.Row="1" Grid.Column="2" MinWidth="75" Margin="3 3 3 5" Content="{Binding Source={StaticResource LocStrings},Path=Select}"
+                                Command="{Binding SelectBgColorCommand}"/>
                         </Grid>
                         <Grid Grid.Column="1" Margin="3">
                             <Grid.RowDefinitions>
@@ -112,9 +122,24 @@
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
                             <Label Grid.ColumnSpan="3" Content="{Binding Source={StaticResource LocStrings},Path=FontColor}"/>
-                            <Rectangle Grid.Row="1" Margin="3 3 3 5" Stroke="Black" Fill="{Binding Path=SelectedCategory.FontColor}" Height="20" Width="20"/>
-                            <TextBox x:Name="fontColorTxt" Grid.Row="1" Grid.Column="1" Margin="3 3 3 5" Text="{Binding Path=SelectedCategory.FontColor}"/>
-                            <Button Grid.Row="1" Grid.Column="2" MinWidth="75" Margin="3 3 3 5" Content="{Binding Source={StaticResource LocStrings},Path=Select}"/>
+                            <Rectangle Grid.Row="1" Margin="3 3 3 5" Stroke="Black" Fill="{Binding Path=SelectedCategory.FontColor}" Height="20" Width="20">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <cmd:EventToCommand Command="{Binding Path=SelectFontColorCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Rectangle>
+                            <TextBox x:Name="fontColorTxt" Grid.Row="1" Grid.Column="1" Margin="3 3 3 5">
+                                <TextBox.Text>
+                                    <Binding Path="SelectedCategory.FontColor" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <utilities:RgbValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <Button Grid.Row="1" Grid.Column="2" MinWidth="75" Margin="3 3 3 5" Content="{Binding Source={StaticResource LocStrings},Path=Select}"
+                                Command="{Binding SelectFontColorCommand}"/>
                         </Grid>
                     </Grid>
                 </Grid>

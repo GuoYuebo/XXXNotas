@@ -81,25 +81,5 @@ namespace XXXNotas.Model
             get { return _isDefault; }
             set { Set(ref _isDefault, value); }
         }
-
-        /// <summary>
-        /// 表示该 <see cref="System.Object"/> 是否是本实例相同
-        /// </summary>
-        /// <param name="obj">比较的 <see cref="System.Object"/></param>
-        /// <returns><c>true</c>表示相同</returns>
-        public override bool Equals(object obj)
-        {
-            Category category = obj as Category;
-            return category != null && (category.Id == this.Id && category.Name == this.Name);
-        }
-
-        /// <summary>
-        /// 重写Equals方法后需要重写GetHashCode方法
-        /// </summary>
-        /// <returns>返回的对象哈希值</returns>
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode() + Name.GetHashCode();
-        }
     }
 }
