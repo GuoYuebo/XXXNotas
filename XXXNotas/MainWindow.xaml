@@ -48,10 +48,10 @@
                                     <MenuItem Header="{Binding Path=Edit, Source={StaticResource LocStrings}}" Click="EditNote_Click"/>
                                     <MenuItem Header="{Binding Path=Delete, Source={StaticResource LocStrings}}" Click="DeleteNote_Click"/>
                                     <Separator/>
-                                    <ComboBox>
+                                    <ComboBox Loaded="ComboBox_Loaded" SelectionChanged="ComboBox_SelectionChanged">
                                         <ComboBox.ItemTemplate>
                                             <DataTemplate>
-                                                <TextBlock/>
+                                                <TextBlock Text="{Binding Name}"/>
                                             </DataTemplate>
                                         </ComboBox.ItemTemplate>
                                     </ComboBox>

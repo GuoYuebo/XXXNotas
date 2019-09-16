@@ -35,6 +35,9 @@ namespace XXXNotas.Model
             _date = DateTime.Now.ToString("yyyy-MM-dd");
         }
 
+        /// <summary>
+        /// Note唯一标识符
+        /// </summary>
         public Guid Id
         {
             get { return _id; }
@@ -66,6 +69,28 @@ namespace XXXNotas.Model
         {
             get { return _category; }
             set { Set(ref _category, value); }
+        }
+
+        /// <summary>
+        /// 重写Equals
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if(obj is Note note)
+            {
+                return Id == note.Id;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace XXXNotas.ViewModel
 
         private Category _selectedCategory;
         private Note _actualNote;
-        private Category _trash;
+        private readonly Category _trash;
         #endregion
 
         #region 属性
@@ -112,6 +112,18 @@ namespace XXXNotas.ViewModel
 
             Messenger.Default.Register<CategoryEditorChangesMessage>(this, MakingNewCatChanges);
         }
+
+        /// <summary>
+        /// 修改笔记的目录
+        /// </summary>
+        /// <param name="theNote"></param>
+        /// <param name="theCategory"></param>
+        public void ChangeNoteCategory(Note theNote, Category theCategory)
+        {
+            var note = Notes.Single(c => c == theNote);
+            note.Category = theCategory;
+            _noteService.Save(note);
+        }
         #endregion
 
         #region Command
@@ -131,14 +143,14 @@ namespace XXXNotas.ViewModel
         {
             ActualNote.Category = SelectedCategory;
 
-            if (!Notes.Any(c => c.Id == ActualNote.Id))
+            if (!Notes.Any(c => c == ActualNote))
             {
                 Notes.Add(ActualNote);
                 _noteService.Save(ActualNote);
             }
             else
             {
-                Notes[Notes.IndexOf(Notes.FirstOrDefault(c => c.Id == ActualNote.Id))] = ActualNote;
+                Notes[Notes.IndexOf(Notes.Single(c => c == ActualNote))] = ActualNote;
                 _noteService.SaveAll(Notes.ToList());
             }
 

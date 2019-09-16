@@ -42,7 +42,14 @@ namespace XXXNotas.Service
 
         public void Save(Note note)
         {
-            _notes.Add(note);
+            if(_notes.Any(c => c == note))
+            {
+                _notes[_notes.IndexOf(_notes.Single(c => c == note))] = note;
+            }
+            else
+            {
+                _notes.Add(note);
+            }
             Serialize();
         }
 

@@ -33,7 +33,7 @@ namespace XXXNotas.Service
         public Category GetById(Guid id)
         {
             Deserialize();
-            return _categories.SingleOrDefault(c => c.Id == id);
+            return _categories.Single(c => c.Id == id);
         }
 
         public void Reset()

@@ -81,5 +81,22 @@ namespace XXXNotas.Model
             get { return _isDefault; }
             set { Set(ref _isDefault, value); }
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Category cat)
+            {
+                return Id == cat.Id;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }
