@@ -1,11 +1,13 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Samples.CustomControls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using XXXNotas.Messages;
 using XXXNotas.Model;
 using XXXNotas.Service;
 using XXXNotas.Utilities;
@@ -24,6 +26,7 @@ namespace XXXNotas.ViewModel
         private bool _isValid = true;
         private List<Guid> _notesToDelete;
         private List<Guid> _notesToTrash;
+        private readonly List<Guid> _categoriesId;
         #endregion
 
         #region 属性
@@ -76,8 +79,11 @@ namespace XXXNotas.ViewModel
         public CategoryEditorViewModel(ICategoryService categoryService)
         {
             _categoryService = categoryService;
+            _categoriesId = new List<Guid>();
+            _notesToTrash = new List<Guid>();
 
             Categories = new ObservableCollection<Category>(_categoryService.FindAll());
+            NotesToDelete = new List<Guid>();
 
             DefaultCategoryChangedCommand = new RelayCommand<Category>(DefaultCategoryChanged);
             CategoryBeenSelected = new RelayCommand(() => OnCategoryUpdate = true);
@@ -87,7 +93,7 @@ namespace XXXNotas.ViewModel
             DeleteCategoryCommand = new RelayCommand<object>(DeleteCategory, category => OnCategoryUpdate && Categories.Count > 1 && SelectedCategory != null);
             AcceptCategoryCommand = new RelayCommand(AcceptCategory, () => OnCategoryUpdate && IsValid);
 
-            NotesToDelete = new List<Guid>();
+            Messenger.Default.Register<string>(this, SavingCatOptions);
         }
         #endregion
 
@@ -150,6 +156,10 @@ namespace XXXNotas.ViewModel
 
         private void AcceptCategory()
         {
+            if(SelectedCategory != null)
+            {
+                _categoriesId.Add(SelectedCategory.Id);
+            }
             SelectedCategory = null;
             _categoryService.SaveAll(Categories);
             OnCategoryUpdate = false;
@@ -178,6 +188,20 @@ namespace XXXNotas.ViewModel
                 return dialog.SelectedColor.ToString();
             }
             return "";
+        }
+
+        private void SavingCatOptions(string message)
+        {
+            if(message == "ClosingWindow")
+            {
+                AcceptCategory();
+                Messenger.Default.Send<CategoryEditorChangesMessage, MainViewModel>(new CategoryEditorChangesMessage
+                {
+                    NotesToDelete = _notesToDelete,
+                    NotesToTrash = _notesToTrash,
+                    CategoriesId = _categoriesId
+                });
+            }
         }
         #endregion
     }

@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 using Microsoft.Practices.ServiceLocation;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using XXXNotas.Messages;
@@ -27,6 +28,7 @@ namespace XXXNotas.ViewModel
 
         private Category _selectedCategory;
         private Note _actualNote;
+        private Category _trash;
         #endregion
 
         #region 属性
@@ -61,7 +63,14 @@ namespace XXXNotas.ViewModel
         public Note ActualNote
         {
             get { return _actualNote; }
-            set { Set(ref _actualNote, value); }
+            set
+            {
+                if(value.Category != null && value.Category.Name == "Trash")
+                {
+                    value.Category = Categories[0];
+                }
+                Set(ref _actualNote, value);
+            }
         }
         #endregion
 
@@ -75,6 +84,7 @@ namespace XXXNotas.ViewModel
         {
             _categoryService = categoryService;
             _noteService = noteService;
+            _trash = new Category("Trash", "#f8f8f8", "#777777");
 
             Categories = new ObservableCollection<Category>(_categoryService.FindAll());
             Notes = new ObservableCollection<Note>(_noteService.FindAll());
@@ -102,15 +112,6 @@ namespace XXXNotas.ViewModel
 
             Messenger.Default.Register<CategoryEditorChangesMessage>(this, MakingNewCatChanges);
         }
-
-        /// <summary>
-        /// 响应目录变化
-        /// </summary>
-        /// <param name="message">目录变化信息</param>
-        private void MakingNewCatChanges(CategoryEditorChangesMessage message)
-        {
-            throw new NotImplementedException();
-        }
         #endregion
 
         #region Command
@@ -120,22 +121,25 @@ namespace XXXNotas.ViewModel
         /// <returns></returns>
         private bool CanAddNote()
         {
-            return SelectedCategory != null;
+            return SelectedCategory != null && !string.IsNullOrEmpty(ActualNote.Content);
         }
 
-        ///// <summary>
-        ///// 添加笔记命令函数
-        ///// </summary>
+        /// <summary>
+        /// 添加笔记命令函数
+        /// </summary>
         private void AddNote()
         {
-            if (string.IsNullOrEmpty(ActualNote.Content)) return;
-
             ActualNote.Category = SelectedCategory;
 
             if (!Notes.Any(c => c.Id == ActualNote.Id))
             {
                 Notes.Add(ActualNote);
                 _noteService.Save(ActualNote);
+            }
+            else
+            {
+                Notes[Notes.IndexOf(Notes.FirstOrDefault(c => c.Id == ActualNote.Id))] = ActualNote;
+                _noteService.SaveAll(Notes.ToList());
             }
 
             ActualNote = new Note();
@@ -147,7 +151,8 @@ namespace XXXNotas.ViewModel
         /// <param name="note">需要编辑的笔记</param>
         private void EditNote(Note note)
         {
-            throw new NotImplementedException();
+            ActualNote = note;
+            SelectedCategory = note.Category;
         }
 
         /// <summary>
@@ -156,7 +161,8 @@ namespace XXXNotas.ViewModel
         /// <param name="note">需要删除的笔记</param>
         private void DeleteNote(Note note)
         {
-            throw new NotImplementedException();
+            Notes.Remove(note);
+            _noteService.Delete(note);
         }
 
         /// <summary>
@@ -177,21 +183,67 @@ namespace XXXNotas.ViewModel
         private void OpenCategoryOptions()
         {
             (new View.CategoryEditorView()).ShowDialog();
-            UpdateCategory();
         }
         #endregion
 
         #region 私有方法
         /// <summary>
-        /// 目录配置后，更新日记对应的目录
+        /// 响应目录变化
         /// </summary>
-        private void UpdateCategory()
+        /// <param name="message">目录变化信息</param>
+        private void MakingNewCatChanges(CategoryEditorChangesMessage message)
         {
-            foreach(var item in Notes)
+            UpdateCategoriesAndNotes(message.CategoriesId);
+            DeleteNotesWithoutCategory(message.NotesToDelete);
+            NotesToTrash(message.NotesToTrash);
+        }
+
+        private void UpdateCategoriesAndNotes(List<Guid> CategoriesId)
+        {
+            Categories = new ObservableCollection<Category>(_categoryService.FindAll());
+            SelectedCategory = Categories[0];
+            if(CategoriesId.Count > 0)
             {
-                item.Category = Categories.FirstOrDefault(c => c.Id == item.Category.Id);
+                foreach(var id in CategoriesId)
+                {
+                    foreach(var note in Notes.Where(c => c.Category.Id == id))
+                    {
+                        note.Category = _categoryService.GetById(id);
+                        _noteService.Save(note);
+                    }
+                }
             }
-            _noteService.SaveAll(Notes.ToList());
+        }
+
+        private void DeleteNotesWithoutCategory(List<Guid> catetoriesId)
+        {
+            if(catetoriesId.Count > 0)
+            {
+                var notes = (from Note note in Notes
+                            where catetoriesId.Contains(note.Category.Id)
+                            select note).ToList<Note>();
+
+                foreach (var note in notes)
+                {
+                    Notes.Remove(note);
+                    _noteService.Delete(note);
+                }
+            }
+        }
+
+        private void NotesToTrash(List<Guid> categoriesId)
+        {
+            if(categoriesId.Count > 0)
+            {
+                var notes = from Note note in Notes
+                            where categoriesId.Contains(note.Category.Id)
+                            select note;
+                foreach(var note in notes)
+                {
+                    note.Category = _trash;
+                    _noteService.Save(note);
+                }
+            }
         }
         #endregion
     }

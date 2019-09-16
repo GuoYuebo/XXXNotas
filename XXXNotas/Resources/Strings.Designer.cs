@@ -97,6 +97,15 @@ namespace XXXNotas.Resources {
         }
         
         /// <summary>
+        ///   查找类似 Please Accept Before Close. 的本地化字符串。
+        /// </summary>
+        public static string BeforeCategoryClose {
+            get {
+                return ResourceManager.GetString("BeforeCategoryClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Category data 的本地化字符串。
         /// </summary>
         public static string CategoryData {

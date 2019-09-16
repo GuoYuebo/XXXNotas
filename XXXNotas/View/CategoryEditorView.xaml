@@ -6,9 +6,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:cmd="http://www.galasoft.ch/mvvmlight"
         xmlns:utilities="clr-namespace:XXXNotas.Utilities"
-        mc:Ignorable="d" Height="654" Width="586" Title="{Binding Source={StaticResource LocStrings},Path=CategoryOptions}"
+        mc:Ignorable="d" Height="654" ResizeMode="NoResize" Width="586" Title="{Binding Source={StaticResource LocStrings},Path=CategoryOptions}"
         Background="White" DataContext="{Binding Path=CategoryEditor,Source={StaticResource Locator}}"
-        d:DataContext="{d:DesignData /SampleData/CategoryEditorViewModelSampleData.xaml}">
+        d:DataContext="{d:DesignData /SampleData/CategoryEditorViewModelSampleData.xaml}" Closing="Window_Closing">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -57,7 +57,7 @@
                         MinWidth="125" Margin="5" Command="{Binding Path=NewCategoryCommand}"/>
                     <Button Content="{Binding Source={StaticResource LocStrings},Path=DeleteSelected}"
                         MinWidth="125" Margin="5" Command="{Binding Path=DeleteCategoryCommand}" CommandParameter="{Binding ElementName=listViewCategories,Path=SelectedItem}"/>
-                    <CheckBox Margin="3" VerticalAlignment="Center" IsChecked="True" Content="{Binding Source={StaticResource LocStrings},Path=DeleteNotesToo}"/>
+                    <CheckBox Margin="3" VerticalAlignment="Center" IsChecked="{Binding DeleteNotesToo}" Content="{Binding Source={StaticResource LocStrings},Path=DeleteNotesToo}"/>
                 </StackPanel>
             </Grid>
         </Border>
@@ -74,7 +74,7 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <Label Content="{Binding Source={StaticResource LocStrings},Path=Name}"/>
-                        <TextBox x:Name="nameTxt" Grid.Row="1" Margin="3" Text="{Binding Path=SelectedCategory.Name}"/>
+                        <TextBox x:Name="nameTxt" Grid.Row="1" Margin="3" Text="{Binding Path=SelectedCategory.Name,UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>

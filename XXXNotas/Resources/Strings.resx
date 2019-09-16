@@ -129,6 +129,9 @@
   <data name="BadRGB" xml:space="preserve">
     <value>BadRGB</value>
   </data>
+  <data name="BeforeCategoryClose" xml:space="preserve">
+    <value>Please Accept Before Close.</value>
+  </data>
   <data name="CategoryData" xml:space="preserve">
     <value>Category data</value>
   </data>
