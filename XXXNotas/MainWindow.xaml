@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ignore="http://www.galasoft.ch/ignore"
         mc:Ignorable="d ignore"
-        Height="300"
-        Width="300"
-        Title="MVVM Light Application"
-        DataContext="{Binding Main, Source={StaticResource Locator}}">
-    
+        Height="480"
+        Icon="Resources/Icons/app_48.ico" 
+        Width="640"
+        Title="XXXNotas"
+        DataContext="{Binding Main, Source={StaticResource Locator}}"
+        d:DataContext="{d:DesignData /SampleData/MainViewModelSampleData.xaml}">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,14 +20,89 @@
     </Window.Resources>
 
     <Grid x:Name="LayoutRoot">
-
-        <TextBlock FontSize="36"
-                   FontWeight="Bold"
-                   Foreground="Purple"
-                   Text="{Binding WelcomeTitle}"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   TextWrapping="Wrap" />
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
+            <ItemsControl Background="Beige" Padding="15" ItemsSource="{Binding Notes}">
+                <ItemsControl.RenderTransform>
+                    <ScaleTransform ScaleX="{Binding Path=Value, ElementName=zoomSlider}" ScaleY="{Binding Path=Value, ElementName=zoomSlider}"/>
+                </ItemsControl.RenderTransform>
+                <ItemsControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{Binding Source={StaticResource LocStrings},Path=DeleteAllNotes}"
+                            Command="{Binding DeleteAllNotesCommand}"/>
+                    </ContextMenu>
+                </ItemsControl.ContextMenu>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="{Binding Path=Edit, Source={StaticResource LocStrings}}" Click="EditNote_Click"/>
+                                    <MenuItem Header="{Binding Path=Delete, Source={StaticResource LocStrings}}" Click="DeleteNote_Click"/>
+                                    <Separator/>
+                                    <ComboBox Loaded="ComboBox_Loaded" SelectionChanged="ComboBox_SelectionChanged">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Name}"/>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </ContextMenu>
+                            </Grid.ContextMenu>
+                            <Border Background="{Binding Category.BackgroundColor}" Style="{StaticResource NoteBorderStyle}">
+                                <TextBlock Text="{Binding Date}" VerticalAlignment="Center" Foreground="{Binding Category.FontColor}"/>
+                            </Border>
+                            <Border x:Name="noteBorder" Grid.Column="1" Style="{StaticResource NoteBorderStyle}" Background="{Binding Category.BackgroundColor}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Content}" TextWrapping="WrapWithOverflow" Foreground="{Binding Category.FontColor}"/>
+                                    <Line X1="0" Y1="0" X2="{Binding ElementName=noteBorder,Path=ActualWidth}" Stroke="{Binding Category.FontColor}" StrokeThickness="1" Margin="0 5 0 0"/>
+                                    <TextBlock Text="{Binding Category.Name}" Foreground="{Binding Category.FontColor}" FontSize="10" HorizontalAlignment="Right"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <ComboBox Grid.Column="0" Height="20" MinWidth="75" Margin="7"
+                      ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBox Grid.Column="1" Margin="7" Text="{Binding Path=ActualNote.Content,UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Grid.Column="2" Content="{Binding Source={StaticResource LocStrings},Path=AddNote}" Command="{Binding AddNoteCommand}" Margin="7" MinWidth="75" IsDefault="True"/>
+        </Grid>
+        <Border Grid.Row="2" Padding="5" Background="#eaeaa0">
+            <DockPanel>
+                <TextBlock VerticalAlignment="Center">
+                    <Hyperlink Command="{Binding CategoryOptionsCommand}">
+                        <InlineUIContainer>
+                            <TextBlock Text="{Binding Source={StaticResource LocStrings},Path=CategoryOptions}"/>
+                        </InlineUIContainer>
+                    </Hyperlink>                
+                </TextBlock>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="{Binding Source={StaticResource LocStrings},Path=Zoom}"/>
+                    <Slider x:Name="zoomSlider" Width="125" Minimum="1" Maximum="4" Value="1" Margin="5 0"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
     </Grid>
 </Window>

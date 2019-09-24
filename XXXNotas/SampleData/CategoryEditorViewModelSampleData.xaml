@@ -1,0 +1,14 @@
+﻿<ViewModel:CategoryEditorViewModel
+    xmlns:ViewModel="clr-namespace:XXXNotas.ViewModel"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:Model="clr-namespace:XXXNotas.Model" >
+    <ViewModel:CategoryEditorViewModel.Categories>
+        <Model:Category BackgroundColor="#FF110000" FontColor="#FF110000" Name="Aenean vestibulum"/>
+        <Model:Category BackgroundColor="#FF110000" FontColor="#FF110000" Name="Mauris quisque adipiscing nullam amet"/>
+        <Model:Category BackgroundColor="#FF110000" FontColor="#FF110000" Name="Vestibulum aptent vivamus nam curae"/>
+        <Model:Category BackgroundColor="#FF110000" FontColor="#FF110000" Name="Aliquam aliquet enim lorem"/>
+    </ViewModel:CategoryEditorViewModel.Categories>
+    <ViewModel:CategoryEditorViewModel.SelectedCategory>
+        <Model:Category BackgroundColor="#FF110000" FontColor="#FFFFFFFF" Name="Aenean vestibulum"/>
+    </ViewModel:CategoryEditorViewModel.SelectedCategory>
+</ViewModel:CategoryEditorViewModel>

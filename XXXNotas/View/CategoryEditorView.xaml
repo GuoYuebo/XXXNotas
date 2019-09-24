@@ -1,0 +1,169 @@
+﻿<Window x:Class="XXXNotas.View.CategoryEditorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cmd="http://www.galasoft.ch/mvvmlight"
+        xmlns:utilities="clr-namespace:XXXNotas.Utilities"
+        mc:Ignorable="d" Height="654" ResizeMode="NoResize" Width="586" Title="{Binding Source={StaticResource LocStrings},Path=CategoryOptions}"
+        Background="White" DataContext="{Binding Path=CategoryEditor,Source={StaticResource Locator}}"
+        d:DataContext="{d:DesignData /SampleData/CategoryEditorViewModelSampleData.xaml}" Closing="Window_Closing">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Skins/MainSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="275"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border Padding="5" BorderBrush="#eaeaa0" BorderThickness="3" Margin="5">
+            <Grid Background="Beige">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ListView x:Name="listViewCategories" Margin="5 5 5 0" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <cmd:EventToCommand Command="{Binding Path=CategoryBeenSelected,Mode=OneWay}" MustToggleIsEnabledValue="True"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="{Binding Source={StaticResource LocStrings},Path=Default}" Width="80">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <RadioButton Margin="25 0" GroupName="Category" HorizontalAlignment="Center" IsChecked="{Binding IsDefault}"
+                                            Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type Window}}}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="{Binding Source={StaticResource LocStrings},Path=Name}" Width="120" DisplayMemberBinding="{Binding Path=Name}"/>
+                            <GridViewColumn Header="{Binding Source={StaticResource LocStrings},Path=BackgroundColor}" Width="120" DisplayMemberBinding="{Binding Path=BackgroundColor}"/>
+                            <GridViewColumn Header="{Binding Source={StaticResource LocStrings},Path=FontColor}" Width="90" DisplayMemberBinding="{Binding Path=FontColor}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <Button Content="{Binding Source={StaticResource LocStrings},Path=NewCategory}"
+                        MinWidth="125" Margin="5" Command="{Binding Path=NewCategoryCommand}"/>
+                    <Button Content="{Binding Source={StaticResource LocStrings},Path=DeleteSelected}"
+                        MinWidth="125" Margin="5" Command="{Binding Path=DeleteCategoryCommand}" CommandParameter="{Binding ElementName=listViewCategories,Path=SelectedItem}"/>
+                    <CheckBox Margin="3" VerticalAlignment="Center" IsChecked="{Binding DeleteNotesToo}" Content="{Binding Source={StaticResource LocStrings},Path=DeleteNotesToo}"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+        <GroupBox Grid.Row="1" Padding="3" Margin="3" BorderBrush="#eaeaa0" BorderThickness="3" Header="{Binding Source={StaticResource LocStrings},Path=CategoryData}">
+            <Border Margin="2" Background="Beige" Padding="3">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Label Content="{Binding Source={StaticResource LocStrings},Path=Name}"/>
+                        <TextBox x:Name="nameTxt" Grid.Row="1" Margin="3" Text="{Binding Path=SelectedCategory.Name,UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Margin="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.ColumnSpan="3" Content="{Binding Source={StaticResource LocStrings},Path=BackgroundColor}"/>
+                            <Rectangle Grid.Row="1" Margin="3 3 3 5" Fill="{Binding Path=SelectedCategory.BackgroundColor}" Stroke="Black" Height="20" Width="20">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <cmd:EventToCommand Command="{Binding SelectBgColorCommand}" MustToggleIsEnabledValue="True"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Rectangle>
+                            <TextBox x:Name="backgroundTxt" Grid.Row="1" Grid.Column="1" Margin="3 3 3 5" TextChanged="OnColorChange">
+                                <TextBox.Text>
+                                    <Binding Path="SelectedCategory.BackgroundColor" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <utilities:RgbValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <Button Grid.Row="1" Grid.Column="2" MinWidth="75" Margin="3 3 3 5" Content="{Binding Source={StaticResource LocStrings},Path=Select}"
+                                Command="{Binding SelectBgColorCommand}"/>
+                        </Grid>
+                        <Grid Grid.Column="1" Margin="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.ColumnSpan="3" Content="{Binding Source={StaticResource LocStrings},Path=FontColor}"/>
+                            <Rectangle Grid.Row="1" Margin="3 3 3 5" Stroke="Black" Fill="{Binding Path=SelectedCategory.FontColor}" Height="20" Width="20">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                                        <cmd:EventToCommand Command="{Binding Path=SelectFontColorCommand}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Rectangle>
+                            <TextBox x:Name="fontColorTxt" Grid.Row="1" Grid.Column="1" Margin="3 3 3 5">
+                                <TextBox.Text>
+                                    <Binding Path="SelectedCategory.FontColor" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <utilities:RgbValidationRule/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <Button Grid.Row="1" Grid.Column="2" MinWidth="75" Margin="3 3 3 5" Content="{Binding Source={StaticResource LocStrings},Path=Select}"
+                                Command="{Binding SelectFontColorCommand}"/>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+        </GroupBox>
+        <Border Grid.Row="2" Margin="5" Padding="5" BorderBrush="#eaeaa0" BorderThickness="3">
+            <StackPanel Background="Beige" Orientation="Horizontal" FlowDirection="RightToLeft" >
+                <Button Content="{Binding Source={StaticResource LocStrings},Path=Accept}" Margin="5" MinWidth="75"
+                    Command="{Binding Path=AcceptCategoryCommand}"/>
+            </StackPanel>
+        </Border>
+        <GroupBox Grid.Row="3" Header="{Binding Source={StaticResource LocStrings},Path=Preview}"
+            Padding="3" Margin="3" BorderBrush="#eaeaa0" BorderThickness="3">
+            <Border Background="Beige" Padding="3" Margin="2 0 3 2" CornerRadius="3">
+                <Border x:Name="noteBorder" Style="{StaticResource NoteBorderStyle}" Background="{Binding SelectedCategory.BackgroundColor}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding Source={StaticResource LocStrings},Path=ExampleTextPreview}"
+                            Foreground="{Binding Path=SelectedCategory.FontColor}" TextWrapping="WrapWithOverflow"/>
+                        <Line X1="0" Y1="0" X2="{Binding ElementName=noteBorder, Path=ActualWidth}" Y2="0"
+                            Stroke="{Binding SelectedCategory.FontColor}" StrokeThickness="1" Margin="0 4 0 0"/>
+                        <TextBlock HorizontalAlignment="Right" Text="{Binding SelectedCategory.Name}" Foreground="{Binding SelectedCategory.FontColor}" FontSize="10"/>
+                    </StackPanel>
+                </Border>
+            </Border>
+        </GroupBox>
+    </Grid>
+</Window>

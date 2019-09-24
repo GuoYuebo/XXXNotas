@@ -1,0 +1,56 @@
+﻿<ViewModel:MainViewModel xmlns:ViewModel="clr-namespace:XXXNotas.ViewModel"
+    xmlns:Model="clr-namespace:XXXNotas.Model"
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:GalaSoft_MvvmLight_Command="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight"
+    IsInDesignMode="True">
+    <ViewModel:MainViewModel.ActualNote>
+        <Model:Note Content="Sample Note 1" Date="Sample Note Date1">
+            <Model:Note.Category>
+                <Model:Category BackgroundColor="Red" FontColor="#FFFFFF" Name="Sample Category 1">
+                    <Model:Category.Id>
+                        <System:Guid/>
+                    </Model:Category.Id>
+                </Model:Category>
+            </Model:Note.Category>
+        </Model:Note>
+    </ViewModel:MainViewModel.ActualNote>
+    <ViewModel:MainViewModel.Notes>
+        <Model:Note Content="Luctus nisl sed dis" Date="02/22/2010">
+            <Model:Note.Category>
+                <Model:Category BackgroundColor="#FF110000" FontColor="#FFFFFFFF" Name="Phasellus consequat">
+                    <Model:Category.Id>
+                        <System:Guid/>
+                    </Model:Category.Id>
+                </Model:Category>
+            </Model:Note.Category>
+        </Model:Note>
+        <Model:Note Content="Magna volutpat dignissim" Date="02/22/2010">
+            <Model:Note.Category>
+                <Model:Category BackgroundColor="#FF110000" FontColor="#FFFFFFFF" Name="Laoreet vehicula">
+                    <Model:Category.Id>
+                        <System:Guid/>
+                    </Model:Category.Id>
+                </Model:Category>
+            </Model:Note.Category>
+        </Model:Note>
+    </ViewModel:MainViewModel.Notes>
+    <ViewModel:MainViewModel.Categories>
+        <Model:Category BackgroundColor="#FF110000" FontColor="#FFFFFFFF" Name="Phasellus consequat 1">
+            <Model:Category.Id>
+                <System:Guid/>
+            </Model:Category.Id>
+        </Model:Category>
+        <Model:Category BackgroundColor="#FF110000" FontColor="#FFFFFFFF" Name="Phasellus consequat 2">
+            <Model:Category.Id>
+                <System:Guid/>
+            </Model:Category.Id>
+        </Model:Category>
+    </ViewModel:MainViewModel.Categories>
+    <ViewModel:MainViewModel.SelectedCategory>
+        <Model:Category BackgroundColor="#FF110000" FontColor="#FFFFFFFF" Name="Phasellus consequat 1">
+            <Model:Category.Id>
+                <System:Guid/>
+            </Model:Category.Id>
+        </Model:Category>
+    </ViewModel:MainViewModel.SelectedCategory>
+</ViewModel:MainViewModel>
