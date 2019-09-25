@@ -9,7 +9,7 @@ using XXXNotas.Model;
 
 namespace XXXNotas.Service
 {
-    class CategoryService : ICategoryService
+    public class CategoryService : ICategoryService
     {
         /// <summary>
         /// 目录列表

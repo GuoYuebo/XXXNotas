@@ -2,3 +2,6 @@
 packages/
 XXXNotas/obj/
 XXXNotas/bin/
+XXXNotas.Tests/obj/
+XXXNotasTests/obj/
+XXXNotasTests/bin/

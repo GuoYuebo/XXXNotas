@@ -78,7 +78,7 @@ namespace XXXNotas.Model
         /// <returns></returns>
         public override bool Equals(object obj)
         {
-            if(obj is Note note)
+            if (obj is Note note)
             {
                 return Id == note.Id;
             }
